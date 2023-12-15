@@ -1,0 +1,38 @@
+class Solution {
+    public void rotate(int[] nums, int k) {
+        /* O(n) and O(n)
+       if(k > nums.length){
+            k=k%nums.length;
+        }
+        int a[]= new int[nums.length];
+        int m=0;
+        for(int i =0;i<k;i++){
+            a[i] = nums[nums.length-k+i];
+        }
+        for(int i= k;i<nums.length;i++){
+             a[i]=nums[m];
+             m++;
+        }
+        System.arraycopy( a, 0, nums, 0, nums.length );*/
+        //Reversing  -- O(1) and O(n)
+        if(k>nums.length){
+            k=k%nums.length;
+        }
+        int a=nums.length-k;
+        reverse(nums,0,a-1);
+        reverse(nums,a,nums.length-1);
+        reverse(nums,0,nums.length-1);
+    }
+    public void reverse(int[] nums,int m,int n){
+        if(nums==null || nums.length ==1){
+            return;
+        }
+        while(m<n){
+            int temp = nums[m];
+            nums[m]=nums[n];
+            nums[n]=temp;
+            m++;
+            n--;
+        }
+    }
+}
