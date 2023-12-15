@@ -1,0 +1,34 @@
+class Solution {
+   public int evalRPN(String[] tokens) {
+        int result =0;
+        String operators = "+-*/";
+        Stack<String> stack = new Stack<String>();
+        for(String t :tokens){
+            if(!(operators.contains(t))){
+                stack.push(t);
+            }
+            else{
+                int a = Integer.valueOf(stack.pop());
+                int b = Integer.valueOf(stack.pop());
+                int i=operators.indexOf(t);
+                 switch (i){
+
+                   case 0:
+                       stack.push(String.valueOf(a +b));
+                       break;
+                   case 1:
+                       stack.push(String.valueOf(b-a));
+                       break;
+                    case 2:
+                       stack.push(String.valueOf(a*b));
+                       break;
+                    case  3:
+                       stack.push(String.valueOf((int)b/a));
+                       break;   
+                 }
+            }
+        }
+        result = Integer.valueOf(stack.pop());
+        return result;
+    }
+}
