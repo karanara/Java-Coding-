@@ -1,0 +1,39 @@
+public class WordNode{
+    String word;
+    int steps;
+    public WordNode(String word,int steps){
+        this.word = word;
+        this.steps= steps;
+    }
+}
+class Solution {
+    public int ladderLength(String beginWord, String endWord, List<String> wordList) {
+        Queue<WordNode> queue = new LinkedList<>();
+        Set<String> WordDict = new HashSet<>(wordList);
+        queue.offer(new WordNode(beginWord,1));
+        WordDict.add(endWord);
+        while(!(queue.isEmpty())){
+            WordNode front = queue.poll();
+            String start = front.word;
+            if (start.equals(endWord)) {
+              return front.steps;
+            }
+            char[] ch= start.toCharArray();
+            for(int i=0;i<start.length();i++){
+                for(char c = 'a'; c <= 'z'; c++){
+                    char temp = ch[i];
+                    if(ch[i]!=c){
+                        ch[i]=c;
+                    }
+                    String end = new String(ch);
+                    if(WordDict.contains(end)){
+                        queue.offer(new WordNode(end,front.steps+1));
+                        WordDict.remove(end);
+                    }
+                    ch[i]=temp;
+                }
+            }
+        }
+        return 0;
+    }
+}
