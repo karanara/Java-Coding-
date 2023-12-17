@@ -11,7 +11,6 @@ class Solution {
         Queue<WordNode> queue = new LinkedList<>();
         Set<String> WordDict = new HashSet<>(wordList);
         queue.offer(new WordNode(beginWord,1));
-        WordDict.add(endWord);
         while(!(queue.isEmpty())){
             WordNode front = queue.poll();
             String start = front.word;
