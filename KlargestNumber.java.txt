@@ -1,0 +1,54 @@
+class Solution {
+    public int findKthLargest(int[] nums, int k) {
+// Time COmplexity - O(n) in average cases
+        /*if(k<1 || nums==null){
+            return 0;
+        }
+        return getKElement(nums.length-k+1,nums,0,nums.length-1);
+    }
+    public int getKElement(int k ,int[] nums,int start,int end){
+        int pivot = nums[end];
+        int left = start;
+        int right = end;
+        while(true){
+            while(nums[left] < pivot && left < right){
+                left++;
+            }
+            while(nums[right] >=pivot && right >left){
+                right--;
+            }
+            if(left==right){
+                break;
+            }
+            swap(nums,left,right);
+        }
+        swap(nums,left,end);
+        if(k==left+1){
+            return pivot;
+        }
+        else if(k<left+1){
+            return getKElement(k,nums,start,left-1);
+        }
+        else {
+            return getKElement(k,nums,left+1,end);
+        }
+    }
+    public void swap(int[] nums,int start,int end){
+        int temp = nums[start];
+        nums[start] = nums[end];
+        nums[end]=temp;
+    }*/
+//Time complexity -- O(k*logn)
+    PriorityQueue<Integer> q= new PriorityQueue<Integer>(k);
+    for(int i=0;i< k;i++){
+        q.offer(nums[i]);
+    }
+    for(int i =k;i<nums.length;i++){
+        if(nums[i]>q.peek()){
+            q.poll();
+            q.offer(nums[i]);
+        }
+    }
+    return q.peek();
+}
+}
