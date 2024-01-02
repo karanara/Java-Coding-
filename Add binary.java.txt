@@ -1,0 +1,24 @@
+class Solution {
+    public String addBinary(String a, String b) {
+        int alength=a.length();
+        int blength=b.length();
+        int i=0;
+        int c=0;
+        String result="";
+        while(i<alength || i < blength || c!=0){
+            int x=0;
+            if(i<alength && (a.charAt(alength-i-1))=='1'){
+                x=1;
+            }
+            int y=0;
+            if(i<blength && (b.charAt(blength-i-1))=='1'){
+                y=1;
+            }
+            int sum = x+y+c;
+            result = result + String.valueOf(sum%2);
+            c= sum/2;
+            i=i+1;
+        }
+        return new StringBuilder(result).reverse().toString();
+    }
+}
