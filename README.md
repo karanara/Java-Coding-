@@ -6,3 +6,6 @@ For example,"egg" and "add" are isomorphic, "foo" and "bar" are not.
 4.A transformation sequence from word beginWord to word endWord using a dictionary wordList is a sequence of words beginWord -> s1 -> s2 -> ... -> sk such that:
 Every adjacent pair of words differs by a single letter.sk == endWord
 
+5.Given a list of non-negative integers nums, arrange them such that they form the largest number and return it.
+
+Since the result may be very large, so you need to return a string instead of an integer.
