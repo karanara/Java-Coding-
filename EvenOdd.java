@@ -1,12 +1,13 @@
 import java.util.concurrent.CompletableFuture;
 import java.util.concurrent.ExecutorService;
 import java.util.concurrent.Executors;
+import java.util.function.IntPredicate;
 import java.util.stream.IntStream;
 
 import javax.management.ObjectName;
 
-public class EvenOdd implements Runnable{
-    static int count = 1;
+public class EvenOdd{
+    /*static int count = 1;
     Object object;
 
     public EvenOdd(Object object) {
@@ -47,7 +48,7 @@ public class EvenOdd implements Runnable{
         new Thread(r1,"even").start();
         new Thread(r2,"odd").start();
     }*/
-    public static void main (String[] args){
+    /*public static void main (String[] args){
         ExecutorService executorService = Executors.newFixedThreadPool(2);
         IntStream.rangeClosed(1, 10)
         .forEach(num->{
@@ -67,6 +68,32 @@ public class EvenOdd implements Runnable{
                     EvenCompletableFuture.join();
             
             });
+    }*/
+    private static IntPredicate evenCondition = e -> e % 2 == 0;
+    private static IntPredicate oddCondition = e -> e % 2 != 0;
+    private static Object  object= new Object();
+    public static void printResults(IntPredicate condition){
+        IntStream.rangeClosed(1,10)
+        .filter(condition)
+        .forEach(EvenOdd::execute);
+
+    }
+    public static void execute(int i){
+        synchronized(object){
+            try{
+                System.out.println("Thread Name " + Thread.currentThread().getName() + " : " + i);
+                object.notify();
+                object.wait(); 
+            }catch(InterruptedException ex){
+
+            }
+        }
+    }
+    public static void main(String[] args) throws InterruptedException {
+        CompletableFuture.runAsync(() -> EvenOdd.printResults(oddCondition));
+        CompletableFuture.runAsync(() -> EvenOdd.printResults(evenCondition));
+        Thread.sleep(1000);
+
     }
     
 }
